@@ -1193,7 +1193,10 @@ public class CCPCountry implements Comparable<CCPCountry> {
      */
     boolean isEligibleForQuery(String query) {
         query = query.toLowerCase();
-        return getName().toLowerCase().contains(query) || getNameCode().toLowerCase().contains(query) || getPhoneCode().toLowerCase().contains(query) || getEnglishName().toLowerCase().contains(query);
+        return getName().toLowerCase().contains(query)
+                || getNameCode().toLowerCase().contains(query)
+                || getPhoneCode().toLowerCase().contains(query)
+                || getEnglishName().toLowerCase().contains(query);
     }
 
     @Override
