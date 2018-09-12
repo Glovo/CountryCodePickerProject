@@ -2,6 +2,7 @@ package com.hbb20;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -1193,10 +1194,27 @@ public class CCPCountry implements Comparable<CCPCountry> {
      */
     boolean isEligibleForQuery(String query) {
         query = query.toLowerCase();
-        return getName().toLowerCase().contains(query)
-                || getNameCode().toLowerCase().contains(query)
-                || getPhoneCode().toLowerCase().contains(query)
-                || getEnglishName().toLowerCase().contains(query);
+
+        return toLowerCaseSafely(getName()).contains(query)
+                || toLowerCaseSafely(getNameCode()).contains(query)
+                || toLowerCaseSafely(getPhoneCode()).contains(query)
+                || toLowerCaseSafely(getEnglishName()).contains(query);
+    }
+
+    /**
+     * Return empty string "" if source is null.
+     *
+     * Otherwise, returns source.toLowerCase().
+     *
+     * @param source
+     * @return
+     */
+    private static @NonNull String toLowerCaseSafely(@Nullable String source) {
+        if (source == null) {
+            Log.e(TAG, "Error CCPCountry.toLowerCaseSafely() source null");
+            return "";
+        }
+        return source.toLowerCase();
     }
 
     @Override
